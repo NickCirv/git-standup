@@ -1,0 +1,32 @@
+{
+  "name": "git-standup",
+  "version": "1.0.0",
+  "description": "What did you work on? Scan all repos, show your commits. Perfect for standups. Zero dependencies.",
+  "type": "module",
+  "bin": {
+    "git-standup": "./index.js",
+    "standup": "./index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "developer-tools",
+    "cli",
+    "nodejs",
+    "zero-dependencies",
+    "git",
+    "standup",
+    "productivity"
+  ],
+  "license": "MIT",
+  "author": "NickCirv",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NickCirv/git-standup.git"
+  },
+  "homepage": "https://github.com/NickCirv/git-standup#readme",
+  "bugs": {
+    "url": "https://github.com/NickCirv/git-standup/issues"
+  }
+}
