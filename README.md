@@ -1,3 +1,5 @@
+![Banner](banner.svg)
+
 # git-standup
 
 > What did you work on? Scan all repos, show your commits. Perfect for standups. Zero dependencies.
