@@ -1,120 +1,46 @@
-![Banner](banner.svg)
+<div align="center">
 
 # git-standup
 
-> What did you work on? Scan all repos, show your commits. Perfect for standups. Zero dependencies.
+**Scan all your git repos and surface yesterday's commits — ready to paste into Slack or Notion.**
 
-```
-~/projects/my-app (3 commits)
-  abc1234 · 2h ago · feat: add user authentication
-  def5678 · 4h ago · fix: correct password validation
-  ghi9012 · yesterday 5pm · chore: update dependencies
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?labelColor=0B0A09)](LICENSE)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?labelColor=0B0A09)](package.json)
+[![Node >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen?labelColor=0B0A09)](package.json)
 
-~/projects/api-server (1 commit)
-  jkl3456 · yesterday 4pm · refactor: split auth middleware
-```
+</div>
 
 ## Install
 
 ```bash
-# Run directly (no install needed)
-npx git-standup [options]
-
-# Or install globally
-npm install -g git-standup
+npx github:NickCirv/git-standup
 ```
 
-## Quick Start
+## Usage
 
 ```bash
-# Show your commits from yesterday (detects git config user.email automatically)
-standup
+# Yesterday's commits across all repos in cwd (auto-detects git user.email)
+npx github:NickCirv/git-standup
 
-# Last 2 days
-standup --since "2 days ago"
-
-# Scan a specific directory
-standup --path ~/projects
-
-# Copy to Slack / Notion
-standup --format markdown
-
-# Team standup — all authors
-standup --all
+# Last 2 days, scan ~/projects, copy to Slack
+npx github:NickCirv/git-standup --since "2 days ago" --path ~/projects --format markdown
 ```
-
-## Options
 
 | Flag | Alias | Default | Description |
 |------|-------|---------|-------------|
 | `--since` | `-s` | `"yesterday"` | Start of time range |
 | `--until` | `-u` | `"now"` | End of time range |
 | `--author` | `-a` | git user.email | Filter by author email |
-| `--path` | `-p` | current dir | Root directory to scan for repos |
-| `--depth` | `-d` | `2` | How deep to recurse looking for repos |
-| `--format` | `-f` | `text` | Output format: `text`, `markdown`, `json` |
-| `--all` | | `false` | Show all authors (team view) |
-| `--merges` | | `false` | Include merge commits |
+| `--path` | `-p` | cwd | Root directory to scan |
+| `--depth` | `-d` | `2` | Recursion depth for repo discovery |
+| `--format` | `-f` | `text` | Output: `text`, `markdown`, `json` |
+| `--all` | | false | Show all authors (team standup) |
+| `--merges` | | false | Include merge commits |
 | `--help` | `-h` | | Show help |
 
-## Output Formats
+## What it does
 
-**text** — ANSI colors, great for terminal
-
-**markdown** — Great for Slack, Notion, GitHub comments
-
-```markdown
-**~/projects/my-app** (3 commits)
-- `abc1234` · 2h ago · feat: add user authentication
-- `def5678` · 4h ago · fix: correct password validation
-```
-
-**json** — Machine-readable, pipe it anywhere
-
-```json
-[
-  {
-    "repo": "/Users/nick/projects/my-app",
-    "commits": [
-      { "hash": "abc1234...", "short": "abc1234", "date": "2025-01-15T10:00:00Z", "message": "feat: add user auth", "email": "nick@example.com" }
-    ]
-  }
-]
-```
-
-## Examples
-
-```bash
-# Yesterday's work (default)
-standup
-
-# Last week
-standup --since "1 week ago"
-
-# Specific author
-standup --author nick@example.com
-
-# Scan ~/projects, go 3 levels deep
-standup --path ~/projects --depth 3
-
-# Markdown for Slack
-standup --format markdown | pbcopy
-
-# JSON for scripting
-standup --format json | jq '.[].repo'
-
-# Team view (all authors)
-standup --all --since "today"
-```
-
-## Why?
-
-Every morning: "What did I work on yesterday?" Staring at a blank standup form while Git holds all the answers.
-
-`git-standup` scans all your repos, finds your commits, and surfaces them in seconds. Copy to Slack in markdown, parse as JSON in a script, or just read it in your terminal.
-
-Zero dependencies. Pure Node.js built-ins only. Works anywhere Node 18+ runs.
+Recursively discovers git repositories under a directory, runs `git log` for the specified time range and author, and prints a formatted summary. Text output uses ANSI colour; `markdown` produces bullet lists ready for Slack or Notion; `json` emits structured data for scripting. Auto-detects your author email from `git config user.email` so the default invocation requires no flags.
 
 ---
-
-Built with Node.js · Zero dependencies · MIT License
+<sub>Zero dependencies · Node >=18 · MIT · by <a href="https://github.com/NickCirv">NickCirv</a></sub>
